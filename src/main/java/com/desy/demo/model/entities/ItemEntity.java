@@ -14,6 +14,7 @@ public class ItemEntity  {
 
     }
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     public int getId() {
         return id;

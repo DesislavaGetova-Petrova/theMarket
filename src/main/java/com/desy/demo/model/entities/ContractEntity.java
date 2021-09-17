@@ -16,6 +16,7 @@ public class ContractEntity {
     public ContractEntity() {
     }
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     public int getId() {
         return id;

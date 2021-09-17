@@ -14,6 +14,7 @@ public class UserEntity {
     public UserEntity() {
     }
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     public int getId() {
         return id;
