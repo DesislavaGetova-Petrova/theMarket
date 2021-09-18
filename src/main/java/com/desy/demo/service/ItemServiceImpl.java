@@ -6,6 +6,8 @@ import com.desy.demo.data.payloads.response.MessageResponse;
 import com.desy.demo.repository.ItemRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ItemServiceImpl implements ItemService {
     private final UserService userService;
@@ -26,4 +28,11 @@ public class ItemServiceImpl implements ItemService {
 
 
     }
+
+    @Override
+    public List<ItemEntity> findAllByOwnerId(int id) {
+        return this.itemRepository.findAllByOwnerId(id);
+    }
+
+
 }
