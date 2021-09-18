@@ -12,17 +12,23 @@ public class ContractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private int id;
+
     @JsonIgnore
     @OneToOne
+    @JoinColumn(name = "seller", referencedColumnName = "id")
     private UserEntity seller;
+
     @JsonIgnore
     @OneToOne
+    @JoinColumn(name = "buyer", referencedColumnName = "id")
     private UserEntity buyer;
+
     @JsonIgnore
     @OneToOne
+    @JoinColumn(name = "item", referencedColumnName = "id")
     private ItemEntity item;
     @Column
-    private BigDecimal price;
+    private double price;
     @Column
     private boolean status;
 
@@ -66,11 +72,11 @@ public class ContractEntity {
         return this;
     }
 
-    public BigDecimal getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public ContractEntity setPrice(BigDecimal price) {
+    public ContractEntity setPrice(double price) {
         this.price = price;
         return this;
     }

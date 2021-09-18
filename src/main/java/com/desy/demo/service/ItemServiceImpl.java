@@ -34,5 +34,10 @@ public class ItemServiceImpl implements ItemService {
         return this.itemRepository.findAllByOwnerId(id);
     }
 
+    @Override
+    public ItemEntity findById(int id) {
+        return this.itemRepository.findById(id).orElse(null);
+    }
+
 
 }
