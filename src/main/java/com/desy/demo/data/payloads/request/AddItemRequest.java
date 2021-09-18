@@ -1,17 +1,17 @@
 package com.desy.demo.data.payloads.request;
 
-public class ItemRequest {
+public class AddItemRequest {
     private String name;
     private int owner;
 
-    public ItemRequest() {
+    public AddItemRequest() {
     }
 
     public String getName() {
         return name;
     }
 
-    public ItemRequest setName(String name) {
+    public AddItemRequest setName(String name) {
         this.name = name;
         return this;
     }
@@ -20,7 +20,7 @@ public class ItemRequest {
         return owner;
     }
 
-    public ItemRequest setOwner(int owner) {
+    public AddItemRequest setOwner(int owner) {
         this.owner = owner;
         return this;
     }

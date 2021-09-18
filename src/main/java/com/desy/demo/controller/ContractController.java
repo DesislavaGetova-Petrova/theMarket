@@ -1,8 +1,9 @@
 package com.desy.demo.controller;
 
 import com.desy.demo.data.model.entities.ContractEntity;
-import com.desy.demo.data.payloads.request.ContractRequest;
-import com.desy.demo.data.payloads.request.ItemRequest;
+import com.desy.demo.data.payloads.request.AddContractRequest;
+import com.desy.demo.data.payloads.request.CloseContractRequest;
+import com.desy.demo.data.payloads.request.UpdateContactRequest;
 import com.desy.demo.data.payloads.response.MessageResponse;
 import com.desy.demo.service.ContractService;
 import org.springframework.http.HttpStatus;
@@ -29,15 +30,20 @@ public class ContractController {
 
 
     @PostMapping("/add")
-    public ResponseEntity<MessageResponse> addContract(@RequestBody ContractRequest contractRequest) {
-        MessageResponse newIContract = contractService.createContact(contractRequest);
+    public ResponseEntity<MessageResponse> addContract(@RequestBody AddContractRequest addContractRequest) throws Exception {
+        MessageResponse newIContract = contractService.createContract(addContractRequest);
         return new ResponseEntity<>(newIContract, HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<MessageResponse> updateContract( @PathVariable Integer id, @RequestBody ContractRequest contractRequest) throws Exception {
-        MessageResponse updateContract = contractService.updateContract(id, contractRequest);
+    public ResponseEntity<MessageResponse> updateContract(@PathVariable Integer id, @RequestBody UpdateContactRequest updateContactRequest) throws Exception {
+        MessageResponse updateContract = contractService.updateContract(id, updateContactRequest);
         return new ResponseEntity<>(updateContract, HttpStatus.OK);
+    }
+    @PutMapping("/close/{id}")
+    public ResponseEntity<MessageResponse> closeContract(@PathVariable Integer id, @RequestBody CloseContractRequest closeContractRequest) throws Exception {
+        MessageResponse closeContract = contractService.closeContract(id, closeContractRequest);
+        return new ResponseEntity<>(closeContract, HttpStatus.OK);
     }
 
 }

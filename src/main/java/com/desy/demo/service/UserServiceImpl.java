@@ -1,7 +1,7 @@
 package com.desy.demo.service;
 
 import com.desy.demo.data.model.entities.UserEntity;
-import com.desy.demo.data.payloads.request.ContractRequest;
+import com.desy.demo.data.payloads.request.AddContractRequest;
 import com.desy.demo.data.payloads.response.MessageResponse;
 import com.desy.demo.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public MessageResponse createContract(ContractRequest contractRequest) {
+    public MessageResponse createContract(AddContractRequest addContractRequest) {
         return null;
     }
 }

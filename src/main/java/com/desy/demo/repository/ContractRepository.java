@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface ContractRepository extends JpaRepository<ContractEntity,Integer> {
 
     Optional<ContractEntity> findById(int id);
+    Optional<ContractEntity> findByItem_Id(int id);
 
     List<ContractEntity>findAllByStatusOrderByPrice(boolean status);
 }

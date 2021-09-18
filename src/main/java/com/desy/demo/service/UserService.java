@@ -1,8 +1,7 @@
 package com.desy.demo.service;
 
-import com.desy.demo.data.model.entities.ContractEntity;
 import com.desy.demo.data.model.entities.UserEntity;
-import com.desy.demo.data.payloads.request.ContractRequest;
+import com.desy.demo.data.payloads.request.AddContractRequest;
 import com.desy.demo.data.payloads.response.MessageResponse;
 
 import java.util.List;
@@ -15,7 +14,9 @@ public interface UserService {
 
     List<UserEntity> findAll();
 
-    MessageResponse createContract(ContractRequest contractRequest);
+    MessageResponse createContract(AddContractRequest addContractRequest);
+
+
 
 
 }

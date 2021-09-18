@@ -1,7 +1,7 @@
 package com.desy.demo.service;
 
 import com.desy.demo.data.model.entities.ItemEntity;
-import com.desy.demo.data.payloads.request.ItemRequest;
+import com.desy.demo.data.payloads.request.AddItemRequest;
 import com.desy.demo.data.payloads.response.MessageResponse;
 import com.desy.demo.repository.ItemRepository;
 import org.springframework.stereotype.Service;
@@ -19,10 +19,10 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public MessageResponse createItem(ItemRequest itemRequest) {
+    public MessageResponse createItem(AddItemRequest addItemRequest) {
         ItemEntity newItemEntity=new ItemEntity();
-        newItemEntity.setName(itemRequest.getName());
-        newItemEntity.setOwner(userService.findById(itemRequest.getOwner()));
+        newItemEntity.setName(addItemRequest.getName());
+        newItemEntity.setOwner(userService.findById(addItemRequest.getOwner()));
         itemRepository.save(newItemEntity);
         return new MessageResponse("New Item created successfully");
 

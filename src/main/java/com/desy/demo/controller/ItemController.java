@@ -1,7 +1,7 @@
 package com.desy.demo.controller;
 
 import com.desy.demo.data.model.entities.ItemEntity;
-import com.desy.demo.data.payloads.request.ItemRequest;
+import com.desy.demo.data.payloads.request.AddItemRequest;
 import com.desy.demo.data.payloads.response.MessageResponse;
 import com.desy.demo.service.ItemService;
 import org.springframework.http.HttpStatus;
@@ -21,8 +21,8 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<MessageResponse> addItem(@RequestBody ItemRequest itemRequest) {
-        MessageResponse newItem = itemService.createItem(itemRequest);
+    public ResponseEntity<MessageResponse> addItem(@RequestBody AddItemRequest addItemRequest) {
+        MessageResponse newItem = itemService.createItem(addItemRequest);
         return new ResponseEntity<>(newItem, HttpStatus.CREATED);
     }
     @GetMapping("find/{id}")
