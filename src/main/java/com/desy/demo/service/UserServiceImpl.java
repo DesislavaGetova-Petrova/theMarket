@@ -1,6 +1,6 @@
 package com.desy.demo.service;
 
-import com.desy.demo.model.entities.UserEntity;
+import com.desy.demo.data.model.entities.UserEntity;
 import com.desy.demo.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -25,5 +25,17 @@ public class UserServiceImpl implements UserService{
 
         }
 
+    }
+
+    @Override
+    public UserEntity findById(int id) {
+        return userRepository
+               .findById(id)
+               .orElseThrow(IllegalArgumentException::new);
+    }
+
+    @Override
+    public List<UserEntity> findAll() {
+        return userRepository.findAll();
     }
 }

@@ -1,21 +1,27 @@
-package com.desy.demo.model.entities;
+package com.desy.demo.data.model.entities;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "items")
 public class ItemEntity  {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column
     private int id;
+    @Column
     private String name;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "owner", referencedColumnName = "id")
     private UserEntity owner;
 
     public ItemEntity() {
 
     }
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+
     public int getId() {
         return id;
     }
@@ -25,7 +31,7 @@ public class ItemEntity  {
         return this;
     }
 
-    @Column
+
     public String getName() {
         return name;
     }
@@ -34,8 +40,7 @@ public class ItemEntity  {
         this.name = name;
         return this;
     }
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+
     public UserEntity getOwner() {
         return owner;
     }

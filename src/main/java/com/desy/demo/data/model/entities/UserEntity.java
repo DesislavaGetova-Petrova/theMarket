@@ -1,4 +1,6 @@
-package com.desy.demo.model.entities;
+package com.desy.demo.data.model.entities;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.*;
@@ -6,16 +8,23 @@ import java.util.*;
 @Entity
 @Table(name="users")
 public class UserEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private int id;
+
+    @Column(nullable = false)
     private String username;
+    @Column
     private Double account;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "owner",targetEntity = ItemEntity.class, fetch = FetchType.EAGER,cascade= {CascadeType.ALL})
     private List<ItemEntity> items=new LinkedList<>();
 
     public UserEntity() {
     }
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+
     public int getId() {
         return id;
     }
@@ -25,7 +34,7 @@ public class UserEntity {
         return this;
     }
 
-    @Column(nullable = false)
+
     public String getUsername() {
         return username;
     }
@@ -34,7 +43,7 @@ public class UserEntity {
         this.username = username;
         return this;
     }
-    @Column
+
     public Double getAccount() {
         return account;
     }
@@ -44,7 +53,7 @@ public class UserEntity {
         return this;
     }
 
-    @OneToMany(mappedBy = "owner",targetEntity = ItemEntity.class, fetch = FetchType.EAGER,cascade= {CascadeType.ALL})
+
     public List<ItemEntity> getItems() {
         return items;
     }
@@ -52,5 +61,15 @@ public class UserEntity {
     public UserEntity setItems(List<ItemEntity> items) {
         this.items = items;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ",account='"+ account+'\''+
+                ", items=" + items +
+                '}';
     }
 }

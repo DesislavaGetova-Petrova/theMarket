@@ -1,8 +1,9 @@
 package com.desy.demo.repository;
 
-import com.desy.demo.model.entities.ItemEntity;
+import com.desy.demo.data.model.entities.ItemEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-
+@Repository
 public interface ItemRepository extends JpaRepository<ItemEntity,Integer> {
 }

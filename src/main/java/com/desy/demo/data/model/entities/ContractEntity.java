@@ -1,4 +1,6 @@
-package com.desy.demo.model.entities;
+package com.desy.demo.data.model.entities;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -6,18 +8,27 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "contracts")
 public class ContractEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private int id;
+    @JsonIgnore
+    @OneToOne
     private UserEntity seller;
+    @JsonIgnore
+    @OneToOne
     private UserEntity buyer;
+    @JsonIgnore
+    @OneToOne
     private ItemEntity item;
+    @Column
     private BigDecimal price;
+    @Column
     private boolean status;
 
     public ContractEntity() {
     }
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
+
     public int getId() {
         return id;
     }
@@ -27,7 +38,7 @@ public class ContractEntity {
         return this;
     }
 
-    @OneToOne
+
     public UserEntity getSeller() {
         return seller;
     }
@@ -36,7 +47,7 @@ public class ContractEntity {
         this.seller = seller;
         return this;
     }
-    @OneToOne
+
     public UserEntity getBuyer() {
         return buyer;
     }
@@ -45,7 +56,7 @@ public class ContractEntity {
         this.buyer = buyer;
         return this;
     }
-    @OneToOne
+
     public ItemEntity getItem() {
         return item;
     }
@@ -54,7 +65,7 @@ public class ContractEntity {
         this.item = item;
         return this;
     }
-    @Column
+
     public BigDecimal getPrice() {
         return price;
     }
@@ -63,7 +74,7 @@ public class ContractEntity {
         this.price = price;
         return this;
     }
-    @Column
+
     public boolean isStatus() {
         return status;
     }
