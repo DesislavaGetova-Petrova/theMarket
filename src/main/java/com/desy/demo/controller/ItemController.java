@@ -1,8 +1,8 @@
 package com.desy.demo.controller;
 
 import com.desy.demo.data.model.entities.ItemEntity;
-import com.desy.demo.data.payloads.request.AddItemRequest;
-import com.desy.demo.data.payloads.response.MessageResponse;
+import com.desy.demo.data.loads.request.AddItemRequest;
+import com.desy.demo.data.loads.response.MessageResponse;
 import com.desy.demo.service.ItemService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +21,7 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<MessageResponse> addItem(@RequestBody AddItemRequest addItemRequest) {
+    public ResponseEntity<MessageResponse> addItem(@RequestBody AddItemRequest addItemRequest) throws Exception {
         MessageResponse newItem = itemService.createItem(addItemRequest);
         return new ResponseEntity<>(newItem, HttpStatus.CREATED);
     }

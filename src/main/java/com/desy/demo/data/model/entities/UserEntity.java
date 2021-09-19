@@ -15,12 +15,12 @@ public class UserEntity {
 
     @Column(nullable = false)
     private String username;
+
     @Column
     private Double account;
 
     @JsonIgnore
     @OneToMany(mappedBy = "owner",targetEntity = ItemEntity.class, fetch = FetchType.EAGER,cascade= {CascadeType.ALL})
-
     private List<ItemEntity> items=new LinkedList<>();
 
     public UserEntity() {

@@ -1,4 +1,4 @@
-package com.desy.demo.data.payloads.response;
+package com.desy.demo.data.loads.response;
 
 public class MessageResponse {
     private String message;

@@ -1,4 +1,4 @@
-package com.desy.demo.data.payloads.request;
+package com.desy.demo.data.loads.request;
 
 public class UpdateContactRequest {
     private double price;

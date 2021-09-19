@@ -1,5 +1,6 @@
 package com.desy.demo.repository;
 
+import com.desy.demo.data.model.entities.ItemEntity;
 import com.desy.demo.data.model.entities.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,4 +15,7 @@ public interface UserRepository extends JpaRepository<UserEntity,Integer> {
 
 
     List<UserEntity> findAll();
+
+    @Query("select u.items from UserEntity as u ")
+    List<List<ItemEntity>>findAllItems();
 }

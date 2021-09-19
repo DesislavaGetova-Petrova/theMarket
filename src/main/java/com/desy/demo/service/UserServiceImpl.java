@@ -1,11 +1,8 @@
 package com.desy.demo.service;
-
+import com.desy.demo.data.model.entities.ItemEntity;
 import com.desy.demo.data.model.entities.UserEntity;
-import com.desy.demo.data.payloads.request.AddContractRequest;
-import com.desy.demo.data.payloads.response.MessageResponse;
 import com.desy.demo.repository.UserRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +28,8 @@ public class UserServiceImpl implements UserService{
     public UserEntity findById(int id) {
         return userRepository
                .findById(id)
-               .orElseThrow(IllegalArgumentException::new);
+               .orElseThrow(
+                       () -> new IllegalStateException("User not exist"));
     }
 
     @Override
@@ -40,7 +38,14 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public MessageResponse createContract(AddContractRequest addContractRequest) {
-        return null;
+    public List<List<ItemEntity>> allItems() {
+        return userRepository.findAllItems();
     }
+
+    @Override
+    public List<ItemEntity> findItemsById(int id) {
+        return userRepository.findById(id).get().getItems();
+    }
+
+
 }

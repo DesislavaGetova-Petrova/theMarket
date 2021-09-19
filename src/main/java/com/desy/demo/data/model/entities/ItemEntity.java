@@ -13,6 +13,7 @@ public class ItemEntity  {
     private int id;
     @Column
     private String name;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "owner", referencedColumnName = "id")

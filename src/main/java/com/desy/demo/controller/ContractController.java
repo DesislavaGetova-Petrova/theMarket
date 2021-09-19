@@ -1,10 +1,10 @@
 package com.desy.demo.controller;
 
 import com.desy.demo.data.model.entities.ContractEntity;
-import com.desy.demo.data.payloads.request.AddContractRequest;
-import com.desy.demo.data.payloads.request.CloseContractRequest;
-import com.desy.demo.data.payloads.request.UpdateContactRequest;
-import com.desy.demo.data.payloads.response.MessageResponse;
+import com.desy.demo.data.loads.request.AddContractRequest;
+import com.desy.demo.data.loads.request.CloseContractRequest;
+import com.desy.demo.data.loads.request.UpdateContactRequest;
+import com.desy.demo.data.loads.response.MessageResponse;
 import com.desy.demo.service.ContractService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

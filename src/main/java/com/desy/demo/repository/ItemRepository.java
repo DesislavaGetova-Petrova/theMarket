@@ -13,6 +13,7 @@ import java.util.Optional;
 public interface ItemRepository extends JpaRepository<ItemEntity,Integer> {
     List<ItemEntity>findAllByOwnerId(int id);
     Optional<ItemEntity>findById(int id);
+    Optional<ItemEntity>findByName(String name);
 
 
 
