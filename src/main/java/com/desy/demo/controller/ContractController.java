@@ -5,6 +5,7 @@ import com.desy.demo.data.loads.request.AddContractRequest;
 import com.desy.demo.data.loads.request.CloseContractRequest;
 import com.desy.demo.data.loads.request.UpdateContactRequest;
 import com.desy.demo.data.loads.response.MessageResponse;
+import com.desy.demo.data.model.entities.ItemEntity;
 import com.desy.demo.service.ContractService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,6 @@ import java.util.List;
 public class ContractController {
     private final ContractService contractService;
 
-
     public ContractController(ContractService contractService) {
         this.contractService = contractService;
     }
@@ -27,7 +27,11 @@ public class ContractController {
         List<ContractEntity> activeContracts = contractService.getAllActiveContracts();
         return new ResponseEntity<>(activeContracts, HttpStatus.OK);
     }
-
+    @GetMapping("/allbySellerId/{id}")
+    public ResponseEntity<List<ContractEntity>> getAllBySellerId (@PathVariable("id") Integer id) {
+        List<ContractEntity> contracts = contractService.getAllContractsBySellerId(id);
+        return new ResponseEntity<>(contracts, HttpStatus.OK);
+    }
 
     @PostMapping("/add")
     public ResponseEntity<MessageResponse> addContract(@RequestBody AddContractRequest addContractRequest) throws Exception {

@@ -56,11 +56,7 @@ public class ContractServiceImpl implements ContractService {
         if (contract.isEmpty()) {
             throw new ResourceNotFoundException("Contract is not found");
         }
-
         contract.get().setPrice(updateContactRequest.getPrice());
-//        contract.get().setStatus(true);
-//        contract.get().setItem(itemService.findById(id));
-//        contract.get().setSeller(itemService.findById(id).getOwner());
         contractRepository.save(contract.get());
         return new MessageResponse("Contract updated successfully");
     }
@@ -84,7 +80,6 @@ public class ContractServiceImpl implements ContractService {
        }
 
 
-
         contract.get().setStatus(false);
         contract.get().setBuyer(userService.findById(closeContractRequest.getBuyer()));
         contractRepository.save(contract.get());
@@ -92,7 +87,6 @@ public class ContractServiceImpl implements ContractService {
         Optional<UserEntity> userBuyer=userRepository.findById(closeContractRequest.getBuyer());
         userBuyer.get().setAccount(userService.findById(closeContractRequest.getBuyer()).getAccount()-price);
         userRepository.saveAndFlush(userBuyer.get());
-
 
         Optional<ItemEntity>buyedItem=itemRepository.findById(id);
         buyedItem.get().setOwner(userService.findById(closeContractRequest.getBuyer()));
@@ -105,9 +99,12 @@ public class ContractServiceImpl implements ContractService {
         userSeller.get().setItems(itemsUpdate);
         userRepository.saveAndFlush(userSeller.get());
 
-
         return new MessageResponse("Contract closed successfully");
     }
 
+    @Override
+    public List<ContractEntity> getAllContractsBySellerId(int id) {
+        return this.contractRepository.findAllBySellerId(id);
+    }
 
 }

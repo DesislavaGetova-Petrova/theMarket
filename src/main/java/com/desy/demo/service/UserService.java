@@ -11,8 +11,5 @@ public interface UserService {
 
     List<UserEntity> findAll();
 
-
-    List<List<ItemEntity>> allItems();
-
     List<ItemEntity>findItemsById(int id);
 }

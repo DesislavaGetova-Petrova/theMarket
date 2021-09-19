@@ -11,5 +11,6 @@ public interface ItemService {
     MessageResponse createItem(AddItemRequest addItemRequest) throws Exception;
 
     List<ItemEntity> findAllByOwnerId(int id);
+
     ItemEntity findById(int id);
 }
