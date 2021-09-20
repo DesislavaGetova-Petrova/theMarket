@@ -1,5 +1,6 @@
 package com.desy.demo.service;
 
+import com.desy.demo.data.model.entities.ItemEntity;
 import com.desy.demo.data.model.entities.UserEntity;
 import com.desy.demo.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +11,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,6 +33,14 @@ public class UserServiceTest {
         Mockito.when(mockUserRepository.findAll()).thenReturn(List.of(user));
         assertEquals(1,userService.findAll().size());
     }
+    @Test
+    void findbyIdTest(){
+        UserEntity user=new UserEntity();
+        user.setUsername("user1").setAccount(100.00).setItems(new ArrayList<>());
+        Mockito.when(mockUserRepository.findById(1)).thenReturn(java.util.Optional.of(user));
+        assertEquals(user,userService.findById(1));
+    }
+
 
 
 
