@@ -1,8 +1,9 @@
 package com.desy.demo.web;
 
+import com.desy.demo.repository.ItemRepository;
 import com.desy.demo.repository.UserRepository;
-import com.desy.demo.service.UserService;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +14,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureTestDatabase
-public class UserControllerTest {
-
-    private int testUserId;
+public class ItemControllerTest {
+    private int testItemId;
 
     @Autowired
     private MockMvc mockMvc;
@@ -29,13 +29,16 @@ public class UserControllerTest {
     @Autowired
     private UserRepository userRepository;
 
-    private UserTestData testData;
+    @Autowired
+    private ItemRepository itemRepository;
+
+    private ItemTestData testData;
 
     @BeforeEach
     public void setup() {
-        testData = new UserTestData(userRepository);
+        testData = new ItemTestData(userRepository,itemRepository);
         testData.init();
-        testUserId = testData.getTestUserId();
+        testItemId = testData.getTestItemId();
     }
     @AfterEach
     public void tearDown() {
@@ -43,15 +46,19 @@ public class UserControllerTest {
     }
 
     @Test
-    void testViewAll() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get( "/users/all")).
-                andExpect(status().isOk());
-    }
-    @Test
-    void testGetUserById() throws Exception {
+    void testFindAllItemsByOwnerId() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(
-                "/users/find/{id}", testUserId
+                "/items/find/{id}", testItemId
         )).
                 andExpect(status().isOk());
     }
+    @Test
+    void testAddItemPost() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post( "/items/add")
+                .param("mame", "item1")
+                .param("owner","1"));
+
+        Assertions.assertEquals(1, itemRepository.count());
+    }
+
 }

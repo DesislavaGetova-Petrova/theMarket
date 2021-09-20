@@ -1,8 +1,10 @@
 package com.desy.demo.web;
 
+import com.desy.demo.repository.ContractRepository;
+import com.desy.demo.repository.ItemRepository;
 import com.desy.demo.repository.UserRepository;
-import com.desy.demo.service.UserService;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +17,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureTestDatabase
-public class UserControllerTest {
-
-    private int testUserId;
+public class ContractControllerTest {
+    private int testContractId;
 
     @Autowired
     private MockMvc mockMvc;
@@ -29,13 +29,20 @@ public class UserControllerTest {
     @Autowired
     private UserRepository userRepository;
 
-    private UserTestData testData;
+    @Autowired
+    private ItemRepository itemRepository;
+
+    @Autowired
+    private ContractRepository contractRepository;
+
+
+    private ContractTestData testData;
 
     @BeforeEach
     public void setup() {
-        testData = new UserTestData(userRepository);
+        testData = new ContractTestData(userRepository,itemRepository,contractRepository);
         testData.init();
-        testUserId = testData.getTestUserId();
+        testContractId = testData.getTestContractId();
     }
     @AfterEach
     public void tearDown() {
@@ -43,15 +50,27 @@ public class UserControllerTest {
     }
 
     @Test
-    void testViewAll() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get( "/users/all")).
-                andExpect(status().isOk());
-    }
-    @Test
-    void testGetUserById() throws Exception {
+    void testFindAllI() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(
-                "/users/find/{id}", testUserId
+                "/contracts/all"
         )).
                 andExpect(status().isOk());
     }
+    @Test
+    void testGetAllBySellerId() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(
+                "/contracts/allbySellerId/{id}", testContractId
+        )).
+                andExpect(status().isOk());
+    }
+    @Test
+    void testAddContactPost() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post( "/contacts/add")
+                .param("item", "1")
+                .param("price","10"));
+
+        Assertions.assertEquals(1, contractRepository.count());
+    }
+
+
 }

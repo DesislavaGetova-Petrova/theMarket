@@ -26,7 +26,7 @@ public class ItemController {
         return new ResponseEntity<>(newItem, HttpStatus.CREATED);
     }
     @GetMapping("find/{id}")
-    public ResponseEntity<List<ItemEntity>> getEmployeeById (@PathVariable("id") Integer id) {
+    public ResponseEntity<List<ItemEntity>> findAllItemsByOwnerId (@PathVariable("id") Integer id) {
         List<ItemEntity> items = itemService.findAllByOwnerId(id);
         return new ResponseEntity<>(items, HttpStatus.OK);
     }
