@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 public class ContractTestData {
     private int testContractId;
+    private int testItemId;
 
     private UserRepository userRepository;
     private ItemRepository itemRepository;
@@ -44,6 +45,7 @@ public class ContractTestData {
         contractEntity=contractRepository.save(contractEntity);
 
         testContractId=contractEntity.getId();
+        testItemId=itemEntity.getId();
 
     }
     void cleanUp() {
@@ -55,5 +57,9 @@ public class ContractTestData {
 
     public int getTestContractId() {
         return testContractId;
+    }
+
+    public int getTestItemId() {
+        return testItemId;
     }
 }

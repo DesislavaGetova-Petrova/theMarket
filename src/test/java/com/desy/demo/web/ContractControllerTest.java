@@ -22,6 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureTestDatabase
 public class ContractControllerTest {
     private int testContractId;
+    private int testItemId;
 
     @Autowired
     private MockMvc mockMvc;
@@ -43,6 +44,7 @@ public class ContractControllerTest {
         testData = new ContractTestData(userRepository,itemRepository,contractRepository);
         testData.init();
         testContractId = testData.getTestContractId();
+        testItemId=testData.getTestItemId();
     }
     @AfterEach
     public void tearDown() {
@@ -60,17 +62,17 @@ public class ContractControllerTest {
     void testGetAllBySellerId() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(
                 "/contracts/allbySellerId/{id}", testContractId
-        )).
-                andExpect(status().isOk());
+        )).andExpect(status().isOk());
     }
     @Test
     void testAddContactPost() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post( "/contacts/add")
+        mockMvc.perform(MockMvcRequestBuilders.post( "/contracts/add")
                 .param("item", "1")
                 .param("price","10"));
 
         Assertions.assertEquals(1, contractRepository.count());
     }
+
 
 
 }
