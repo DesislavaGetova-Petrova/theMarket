@@ -1,5 +1,6 @@
 package com.desy.demo.service;
 
+import com.desy.demo.data.currency.MannysConverterAPI;
 import com.desy.demo.data.loads.request.AddContractRequest;
 import com.desy.demo.data.model.entities.ContractEntity;
 import com.desy.demo.data.model.entities.ItemEntity;
@@ -32,10 +33,12 @@ public class ContractServiceTest {
     ItemService mockItemService;
     @Mock
     UserService mockUserService;
+    @Mock
+    MannysConverterAPI mannysConverterAPI;
 
     @BeforeEach
     public  void init() {
-        contractService = new ContractServiceImpl(mockContractRepository,mockUserRepository,mockItemRepository,mockItemService,mockUserService);
+        contractService = new ContractServiceImpl(mockContractRepository,mockUserRepository,mockItemRepository,mockItemService,mockUserService, mannysConverterAPI);
     }
     @Test
     void getAllActiveContractsTest() {

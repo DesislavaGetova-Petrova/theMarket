@@ -19,6 +19,18 @@ public class UserEntity {
     @Column
     private Double account;
 
+    @Column
+    private Currency currency;
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public UserEntity setCurrency(Currency currency) {
+        this.currency = currency;
+        return this;
+    }
+
     @JsonIgnore
     @OneToMany(mappedBy = "owner",targetEntity = ItemEntity.class, fetch = FetchType.EAGER,cascade= {CascadeType.ALL})
     private List<ItemEntity> items=new LinkedList<>();

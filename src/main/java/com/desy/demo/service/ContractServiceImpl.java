@@ -1,5 +1,6 @@
 package com.desy.demo.service;
 
+import com.desy.demo.data.currency.MannysConverterAPI;
 import com.desy.demo.data.model.entities.ContractEntity;
 import com.desy.demo.data.model.entities.ItemEntity;
 import com.desy.demo.data.model.entities.UserEntity;
@@ -13,7 +14,9 @@ import com.desy.demo.repository.UserRepository;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Currency;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Service
@@ -24,13 +27,15 @@ public class ContractServiceImpl implements ContractService {
     private final ItemRepository itemRepository;
     private final ItemService itemService;
     private final UserService userService;
+    private final MannysConverterAPI mannysConverterAPI;
 
-    public ContractServiceImpl(ContractRepository contractRepository, UserRepository userRepository, ItemRepository itemRepository, ItemService itemService, UserService userService) {
+    public ContractServiceImpl(ContractRepository contractRepository, UserRepository userRepository, ItemRepository itemRepository, ItemService itemService, UserService userService, MannysConverterAPI mannysConverterAPI) {
         this.contractRepository = contractRepository;
         this.userRepository = userRepository;
         this.itemRepository = itemRepository;
         this.itemService = itemService;
         this.userService = userService;
+        this.mannysConverterAPI = mannysConverterAPI;
     }
 
 
@@ -85,14 +90,16 @@ public class ContractServiceImpl implements ContractService {
         contractRepository.save(contract.get());
 
         Optional<UserEntity> userBuyer=userRepository.findById(closeContractRequest.getBuyer());
-        userBuyer.get().setAccount(userService.findById(closeContractRequest.getBuyer()).getAccount()-price);
+        Optional<UserEntity> userSeller=userRepository.findById(sellerId);
+        double convertedPrice= mannysConverterAPI.rate(userSeller.get().getCurrency(),userBuyer.get().getCurrency())*price;
+        userBuyer.get().setAccount(userService.findById(closeContractRequest.getBuyer()).getAccount()-convertedPrice);
         userRepository.saveAndFlush(userBuyer.get());
 
         Optional<ItemEntity>buyedItem=itemRepository.findById(id);
         buyedItem.get().setOwner(userService.findById(closeContractRequest.getBuyer()));
         itemRepository.saveAndFlush(buyedItem.get());
 
-        Optional<UserEntity> userSeller=userRepository.findById(sellerId);
+
         userSeller.get().setAccount(userService.findById(sellerId).getAccount()+price);
         List<ItemEntity>itemsUpdate=userSeller.get().getItems();
         itemsUpdate.remove(itemService.findById(id));
