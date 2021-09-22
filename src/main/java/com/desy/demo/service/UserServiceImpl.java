@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public void seedUsers() {
         if(userRepository.count()==0){
-            UserEntity user1 = new UserEntity().setUsername("user1").setAccount(100.00).setItems(new ArrayList<>()).setCurrency(Currency.getInstance(Locale.CANADA));
+            UserEntity user1 = new UserEntity().setUsername("user1").setAccount(100.00).setItems(new ArrayList<>()).setCurrency(Currency.getInstance(Locale.US));
             UserEntity user2 = new UserEntity().setUsername("user2").setAccount(200.00).setItems(new ArrayList<>()).setCurrency(Currency.getInstance(Locale.GERMANY));
             userRepository.saveAll(List.of(user1, user2));
         }
