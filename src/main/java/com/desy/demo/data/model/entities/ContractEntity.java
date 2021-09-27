@@ -8,6 +8,12 @@ import java.io.Serializable;
 @org.hibernate.annotations.NamedNativeQuery(name = "ContractEntity.findByStatusAndItem_IdNew",
         query = "select c.id as id,c.price as price,c.status as status from contracts c where c.item=:id and c.status=:status",
         resultSetMapping = "Mapping.ContractProjection")
+@org.hibernate.annotations.NamedNativeQuery(name = "ContractEntity.findAllByStatusOrderByPriceNew",
+        query = "select c.id as id,c.price as price,c.status as status from contracts c where c.status=true order by c.price ",
+        resultSetMapping = "Mapping.ContractProjection")
+@org.hibernate.annotations.NamedNativeQuery(name = "ContractEntity.findAllBySellerIdNew",
+        query = "select c.id as id,c.price as price,c.status as status from contracts c where c.seller=:id ",
+        resultSetMapping = "Mapping.ContractProjection")
 @SqlResultSetMapping(name = "Mapping.ContractProjection",
         classes = @ConstructorResult(targetClass = ContractProjection.class,
                 columns = {@ColumnResult(name = "id"),
