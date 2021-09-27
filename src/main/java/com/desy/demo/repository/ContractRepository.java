@@ -40,7 +40,7 @@ public interface ContractRepository extends JpaRepository<ContractEntity,Integer
 
 
     @Query(nativeQuery = true,
-            value = "select new com.desy.demo.data.model.entities.ContractProjection(c.id, c.price, c.status) from contracts c where c.status=true order by c.price")
+            value = "select new com.desy.demo.data.model.entities.ContractProjection(c.id, c.price, c.status) from contracts as c where c.status=true order by c.price")
     List<ContractProjection>findAllByStatusOrderByPriceNew();
 
 
