@@ -5,7 +5,7 @@ import com.desy.demo.data.loads.request.AddContractRequest;
 import com.desy.demo.data.loads.request.CloseContractRequest;
 import com.desy.demo.data.loads.request.UpdateContactRequest;
 import com.desy.demo.data.loads.response.MessageResponse;
-import com.desy.demo.data.model.entities.ItemEntity;
+import com.desy.demo.data.model.entities.ContractProjection;
 import com.desy.demo.service.ContractService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +26,21 @@ public class ContractController {
     public ResponseEntity<List<ContractEntity>> getAllActiveContracts () {
         List<ContractEntity> activeContracts = contractService.getAllActiveContracts();
         return new ResponseEntity<>(activeContracts, HttpStatus.OK);
+    }
+    @GetMapping("/allByStatusOrderByPrice")
+    public ResponseEntity<List<ContractProjection>> findAllByStatusOrderByPriceNew () {
+        List<ContractProjection> projectionContracts = contractService.findAllByStatusOrderByPriceNew();
+        return new ResponseEntity<>(projectionContracts, HttpStatus.OK);
+    }
+    @GetMapping("/findByItemId/{id}")
+    public ResponseEntity<ContractProjection> geByItemId (@PathVariable("id") Integer id) {
+       ContractProjection contractProjection=contractService.findByStatusAndItem_IdNew(true,id);
+        return new ResponseEntity<>(contractProjection, HttpStatus.OK);
+    }
+    @GetMapping("/findAllbySellerId/{id}")
+    public ResponseEntity<List<ContractProjection>> getAllProjectionsBySellerId (@PathVariable("id") Integer id) {
+        List<ContractProjection> contracts = contractService.findAllBySellerIdNew(id);
+        return new ResponseEntity<>(contracts, HttpStatus.OK);
     }
     @GetMapping("/allbySellerId/{id}")
     public ResponseEntity<List<ContractEntity>> getAllBySellerId (@PathVariable("id") Integer id) {

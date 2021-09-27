@@ -3,11 +3,21 @@ package com.desy.demo.data.model.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
+import java.io.Serializable;
+
+@org.hibernate.annotations.NamedNativeQuery(name = "ContractEntity.findByStatusAndItem_IdNew",
+        query = "select c.id as id,c.price as price,c.status as status from contracts c where c.item=:id and c.status=:status",
+        resultSetMapping = "Mapping.ContractProjection")
+@SqlResultSetMapping(name = "Mapping.ContractProjection",
+        classes = @ConstructorResult(targetClass = ContractProjection.class,
+                columns = {@ColumnResult(name = "id"),
+                        @ColumnResult(name = "price"),
+                        @ColumnResult(name = "status")}))
+
 
 @Entity
 @Table(name = "contracts")
-public class ContractEntity {
+public class ContractEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

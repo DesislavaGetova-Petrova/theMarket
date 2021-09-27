@@ -5,6 +5,7 @@ import com.desy.demo.data.loads.request.AddContractRequest;
 import com.desy.demo.data.loads.request.CloseContractRequest;
 import com.desy.demo.data.loads.request.UpdateContactRequest;
 import com.desy.demo.data.loads.response.MessageResponse;
+import com.desy.demo.data.model.entities.ContractProjection;
 
 import java.util.List;
 
@@ -19,4 +20,10 @@ public interface ContractService {
     MessageResponse closeContract(Integer id, CloseContractRequest closeContractRequest) throws Exception;
 
     List<ContractEntity> getAllContractsBySellerId(int id);
+
+    ContractProjection findByStatusAndItem_IdNew(boolean status, int id);
+
+    List<ContractProjection> findAllBySellerIdNew(int id);
+
+    List<ContractProjection>findAllByStatusOrderByPriceNew();
 }

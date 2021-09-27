@@ -2,6 +2,7 @@ package com.desy.demo.service;
 
 import com.desy.demo.data.currency.MannysConverterAPI;
 import com.desy.demo.data.model.entities.ContractEntity;
+import com.desy.demo.data.model.entities.ContractProjection;
 import com.desy.demo.data.model.entities.ItemEntity;
 import com.desy.demo.data.model.entities.UserEntity;
 import com.desy.demo.data.loads.request.AddContractRequest;
@@ -14,9 +15,7 @@ import com.desy.demo.repository.UserRepository;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Currency;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 @Service
@@ -73,6 +72,7 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public MessageResponse closeContract(Integer id, CloseContractRequest closeContractRequest) throws Exception {
+
        Optional<ContractEntity> contract=contractRepository.findByStatusAndItem_Id(true,id);
        double price=contract.get().getPrice();
        int sellerId=contract.get().getSeller().getId();
@@ -112,6 +112,22 @@ public class ContractServiceImpl implements ContractService {
     @Override
     public List<ContractEntity> getAllContractsBySellerId(int id) {
         return this.contractRepository.findAllBySellerId(id);
+    }
+
+    @Override
+    public ContractProjection findByStatusAndItem_IdNew(boolean status, int id) {
+        return this.contractRepository.findByStatusAndItem_IdNew(status,id);
+    }
+
+    @Override
+    public List<ContractProjection> findAllBySellerIdNew(int id) {
+
+        return this.contractRepository.findAllBySellerIdNew(id);
+    }
+
+    @Override
+    public List<ContractProjection> findAllByStatusOrderByPriceNew() {
+        return this.contractRepository.findAllByStatusOrderByPriceNew();
     }
 
 }
